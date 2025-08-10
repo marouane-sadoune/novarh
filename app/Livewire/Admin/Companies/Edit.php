@@ -4,7 +4,7 @@ namespace App\Livewire\Admin\Companies;
 
 use Livewire\Component;
 
-class Edite extends Component
+class Edit extends Component
 {
     public function render()
     {
