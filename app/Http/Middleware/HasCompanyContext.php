@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Response;
 
 class HasCompanyContext
@@ -20,7 +21,7 @@ class HasCompanyContext
         }
         // Redirect to a route or view if the company context is not set
         session()->flash('error', 'Please select Company first.');
-        return redirect()->route('companies.index');
+        return redirect(URL::prevoius());
         // Alternatively, you could return a 403 response or redirect to a different page
         // return response()->view('errors.403', [], 403);
         // return redirect()->route('home');
