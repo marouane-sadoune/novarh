@@ -15,7 +15,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/create', Admin\Companies\Create::class)->name('create');
         Route::get('/{id}/edit', Admin\Companies\Edit::class)->name('edit');
         });
-            // For Departments
+    Route::middleware('company.context')->group(function () {
+         // For Departments
         Route::prefix('departement')->name('departements.')->group(function () {
             Route::get('/', Admin\Departement\Index::class)->name('index');
             Route::get('/create', Admin\Departement\Create::class)->name('create');
@@ -54,7 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', Admin\Payments\Index::class)->name('index');
             Route::get('/{id}', Admin\Payments\Show::class)->name('show');
         });
-})->name('dashboard');
+    });
+});
 
 
 Route::middleware(['auth'])->group(function () {
