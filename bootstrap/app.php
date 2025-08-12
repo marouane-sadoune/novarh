@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'company.context' => HasCompanyContext::class
+            'company.context' => HasCompanyContext::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
