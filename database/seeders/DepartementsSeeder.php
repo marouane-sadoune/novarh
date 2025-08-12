@@ -67,8 +67,13 @@ class DepartementsSeeder extends Seeder
                         
                         break;
                     default:
-                        $designation = [];
+                        $designations = [];
                         break;
+                }
+                foreach ($designations as $designation) {
+                    $departement->designations()->create([
+                        'name' => $designation,
+                    ]);
                 }
             }
         }
