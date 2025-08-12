@@ -15,6 +15,7 @@ class EmployeesSeesder extends Seeder
      */
     public function run(): void
     {
+        
         $faker = Factory::create();
         $companies = Company::all();
         foreach ($companies as $key => $company) {
