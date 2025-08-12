@@ -1,7 +1,10 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -35,6 +38,12 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+        FacadesDB::table('users')->insert([
+            
+            'name' => 'Test User',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('12345678'),
+        ]);
     }
 
     /**
