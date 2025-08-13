@@ -19,6 +19,24 @@ class Create extends Component
             'logo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // 2MB Max
         ];
     }
+    public function mount()
+    {
+        $this->company = new \App\Models\Company();
+    }
+    public function save()
+    {
+        $this->validate();
+
+        if ($this->logo) {
+            $this->company->logo = $this->logo->store('logos', 'public');
+        }
+
+        $this->company->save();
+
+        session()->flash('seccess', 'Company created successfully.');
+
+        return redirect()->route('admin.companies.index');
+    }
     public function render()
     {
         return view('livewire.admin.companies.create');
