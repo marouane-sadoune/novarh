@@ -23,6 +23,19 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
+            
+    --color-nos-50: #e6eaf2;
+    --color-nos-100: #ccd5e5;
+    --color-nos-200: #99aacb;
+    --color-nos-300: #6680b1;
+    --color-nos-400:#335597;
+    --color-nos-500: #0c224d;
+    --color-nos-600: #0a1d44;
+    --color-nos-700:#08183b;
+    --color-nos-800:#061232;
+    --color-nos-900: #040d29;
+    --color-nos-950: #020714;
+
     --color-accent: var(--color-neutral-800);
     --color-accent-content: var(--color-neutral-800);
     --color-accent-foreground: var(--color-white);
@@ -64,3 +77,6 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+.table {
+    @apply w-full;
+}
