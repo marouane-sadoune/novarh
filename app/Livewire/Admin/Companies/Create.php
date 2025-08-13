@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Admin\Companies;
 
+use App\Models\Company;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class Create extends Component
 {
-    use \Livewire\WithFileUploads;
+    use WithFileUploads;
     public $company;
     public $logo;
 
@@ -21,7 +23,7 @@ class Create extends Component
     }
     public function mount()
     {
-        $this->company = new \App\Models\Company();
+        $this->company = new Company();
     }
     public function save()
     {
