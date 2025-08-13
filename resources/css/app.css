@@ -80,3 +80,9 @@ select:focus[data-flux-control] {
 .table {
     @apply w-full;
 }
+.table th{
+    @apply px-6 py-3  text-xs font-medium text-nos-800 dark:text-nos-200 uppercase tracking-wider;
+}
+.table td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-nos-700 dark:text-nos-100;
+}
