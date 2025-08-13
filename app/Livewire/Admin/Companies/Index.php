@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    use \Livewire\WithPagination;
+    use \Livewire\WithoutUrlPagination;
     public function delete($companyId)
     {
         $company = Company::find($companyId);
@@ -22,6 +24,12 @@ class Index extends Component
     }
     public function render()
     {
-        return view('livewire.admin.companies.index');
+        return view('livewire.admin.companies.index',
+            [
+                'companies' => Company::latest()->paginate(10),
+            
+            ]);
+
+
     }
 }
