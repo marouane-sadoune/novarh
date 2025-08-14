@@ -18,7 +18,7 @@ class Index extends Component
     }
     public function render()
     {
-        return view('livewire.admin.departement.index',data: [
+        return view('livewire.admin.departement.index', [
             'departments' => Department::inCompany()->paginate(10),
         ]);
     }

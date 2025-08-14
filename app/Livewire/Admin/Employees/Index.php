@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    use \Livewire\WithPagination;
+    use \Livewire\Features\SupportPagination\WithoutUrlPagination;
     public function delete($id)
     {
         // Assuming you have an Employee model
@@ -15,6 +17,9 @@ class Index extends Component
     }
     public function render()
     {
-        return view('livewire.admin.employees.index');
+    return view('livewire.admin.employees.index',
+        [
+            'employees' => Employee::latest()->paginate(10),
+        ]);
     }
 }
