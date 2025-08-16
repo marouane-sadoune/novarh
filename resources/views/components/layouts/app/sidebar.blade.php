@@ -17,18 +17,29 @@
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Companies')" class="grid">
                     <flux:navlist.item icon="building-office-2" :href="route('companies.index')" :current="request()->routeIs('companies.*')" wire:navigate>{{ __('Companies') }}</flux:navlist.item>
-                    <flux:navlist.item icon="plus" :href="route('companies.create')" :current="request()->routeIs('companies.create')" wire:navigate>{{ __('Create Company') }}</flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('companies.create')" :current="request()->routeIs('companies.create')" wire:navigate>{{ __('Create a New Company') }}</flux:navlist.item>
+
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Departments')" class="grid">
+                    <flux:navlist.item icon="building-office-2" :href="route('departements.index')" :current="request()->routeIs('departments.*')" wire:navigate>{{ __('Departments') }}</flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('departements.create')" :current="request()->routeIs('departments.create')" wire:navigate>{{ __('Create a New Department') }}</flux:navlist.item>
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Designations')" class="grid">
+                    <flux:navlist.item icon="briefcase" :href="route('designations.index')" :current="request()->routeIs('designations.*')" wire:navigate>{{ __('Designations') }}</flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('designations.create')" :current="request()->routeIs('designations.create')" wire:navigate>{{ __('Create a New Designation') }}</flux:navlist.item>
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Employees')" class="grid">
+                    <flux:navlist.item icon="users" :href="route('employees.index')" :current="request()->routeIs('employees.*')" wire:navigate>{{ __('Employees') }}</flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('employees.create')" :current="request()->routeIs('employees.create')" wire:navigate>{{ __('Create a New Employee') }}</flux:navlist.item>
                     <!-- <flux:navlist.item icon="users" :href="route('employees.index')" :current="request()->routeIs('employees.*')" wire:navigate>{{ __('Employees') }}</flux:navlist.item> -->
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Contracts')" class="grid">
+                    <flux:navlist.item icon="file" :href="route('contracts.index')" :current="request()->routeIs('contracts.*')" wire:navigate>{{ __('Contracts') }}</flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('contracts.create')" :current="request()->routeIs('contracts.create')" wire:navigate>{{ __('Create a New Contract') }}</flux:navlist.item>
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Payroll')" class="grid">
+                    <flux:navlist.item icon="cash" :href="route('payroll.index')" :current="request()->routeIs('payroll.*')" wire:navigate>{{ __('Payroll') }}</flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('payroll.create')" :current="request()->routeIs('payroll.create')" wire:navigate>{{ __('Create a New Payroll') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
