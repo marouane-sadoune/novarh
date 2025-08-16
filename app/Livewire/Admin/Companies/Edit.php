@@ -41,7 +41,7 @@ class Edit extends Component
 
         $this->company->save();
 
-        session()->flash('seccess', 'Company created successfully.');
+        session()->flash('seccess', 'Company edited successfully.');
 
         return $this-> redirectIntended('companies.index');
     }

@@ -41,7 +41,7 @@ class Edit extends Component
     public function render()
     {
         $departments = \App\Models\Department::inCompany()->where('department_id', $this->departments_id->get());
-        return view('livewire.admin.employees.edite',[
+        return view('livewire.admin.employees.edit',[
                 'departments' => $departments,
                 'departments'=> \App\Models\Department::inCompany()->get(),
             ]);

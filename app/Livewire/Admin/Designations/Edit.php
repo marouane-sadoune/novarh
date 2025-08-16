@@ -32,6 +32,6 @@ class Edit extends Component
     }
     public function render()
     {
-        return view('livewire.admin.designations.edite');
+        return view('livewire.admin.designations.edit');
     }
 }

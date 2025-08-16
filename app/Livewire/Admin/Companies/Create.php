@@ -37,7 +37,7 @@ class Create extends Component
 
         session()->flash('seccess', 'Company created successfully.');
 
-        return redirect()->route('admin.companies.index');
+        return $this-> redirectIntended('companies.index');
     }
     public function render()
     {
