@@ -33,18 +33,32 @@
                     <flux:navlist.item icon="plus" :href="route('employees.create')" :current="request()->routeIs('employees.create')" wire:navigate>{{ __('Create a New Employee') }}</flux:navlist.item>
                      <flux:navlist.item icon="users" :href="route('employees.index')" :current="request()->routeIs('employees.*')" wire:navigate>{{ __('Employees') }}</flux:navlist.item>
                 </flux:navlist.group>
-                {{--<flux:navlist.group :heading="__('Contracts')" class="grid">
+                <flux:navlist.group :heading="__('Contracts')" class="grid">
                     <flux:navlist.item icon="users" :href="route('contracts.index')" :current="request()->routeIs('contracts.*')" wire:navigate>{{ __('Contracts') }}</flux:navlist.item>
                     <flux:navlist.item icon="plus" :href="route('contracts.create')" :current="request()->routeIs('contracts.create')" wire:navigate>{{ __('Create a New Contract') }}</flux:navlist.item>
                 </flux:navlist.group>
-                <flux:navlist.group :heading="__('Payroll')" class="grid">
-                    <flux:navlist.item icon="users" :href="route('payroll.index')" :current="request()->routeIs('payroll.*')" wire:navigate>{{ __('Payroll') }}</flux:navlist.item>
-                    <flux:navlist.item icon="plus" :href="route('payroll.create')" :current="request()->routeIs('payroll.create')" wire:navigate>{{ __('Create a New Payroll') }}</flux:navlist.item>
-                </flux:navlist.group>  --}}
+                <flux:navlist.group :heading="__('Accounting')" class="grid">
+                    <flux:navlist.item icon="users" :href="route('payrolls.index')" :current="request()->routeIs('payroll.*')" wire:navigate>{{ __('Payroll') }}</flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('payments.index')" :current="request()->routeIs('payroll.*')" wire:navigate>{{ __('Payment') }}</flux:navlist.item>
+                </flux:navlist.group>  
             </flux:navlist>
 
             <flux:spacer/>
-
+            <flux:dropdown class="hidden lg:block" position="bottom" align="start">
+                <flux:profile
+                    :name="App\Models\Company::find(session('company_id'))->name??'Select Company'"
+                    :initials="App\Models\User::find(session('company_id'))->initials??'N/A'"
+                    icon:trailing="chevrons-up-down"
+                />
+                <flux:menu>
+                    @foreach (auth()->user()->companies as $company)
+                        <flux:menu.radio.group>
+                            @livewire('company-switcher', ['company' => $company], key($company->id))
+                        </flux:menu.radio.group>
+                        
+                    @endforeach
+                </flux:menu>
+            </flux:dropdown>
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
