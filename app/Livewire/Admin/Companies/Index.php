@@ -9,9 +9,9 @@ class Index extends Component
 {
     use \Livewire\WithPagination;
     use \Livewire\WithoutUrlPagination;
-    public function delete($companyId)
+    public function delete($id)
     {
-        $company = Company::find($companyId);
+        $company = Company::find($id);
         if ($company->exists) {
             $company->delete();
             session()->flash('message', 'Company deleted successfully.');

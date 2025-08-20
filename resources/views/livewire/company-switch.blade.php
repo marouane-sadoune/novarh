@@ -11,16 +11,13 @@ new class extends Component {
         $this->company = $company;
     }
 
-    public function selectCompany()
+    public function selectCompany($id)
     {
         session(['company_id' => $this->company->id]);
-        return $this->redirectIntended(URL::previous());
+        return $this->redirectIntended(URL::previous(),true);
     }
 }; ?>
 
 <div>
-    <flux:menu.item wire:click="selectCompany" class="flex items-center gap-2">
-        <x-heroicon-o-building-office-2 class="w-5 h-5 text-gray-500" />
-        <span class="text-sm font-medium text-gray-700">{{ $company->name }}</span>
-    </flux:menu.item>
+    <flux:menu.item wire:click="selectCompany({{ $company->id }})">{{ $company->name }}</flux:menu.item>
 </div>

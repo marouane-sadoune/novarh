@@ -44,19 +44,24 @@
             </flux:navlist>
 
             <flux:spacer/>
-            <flux:dropdown class="hidden lg:block" position="bottom" align="start">
+            <flux:dropdown>
                 <flux:profile
                     :name="App\Models\Company::find(session('company_id'))->name??'Select Company'"
                     :initials="App\Models\User::find(session('company_id'))->initials??'N/A'"
                     icon:trailing="chevrons-up-down"
                 />
                 <flux:menu>
-                    @foreach (auth()->user()->companies as $company)
-                        <flux:menu.radio.group>
-                            @livewire('company-switcher', ['company' => $company], key($company->id))
-                        </flux:menu.radio.group>
-                        
-                    @endforeach
+                    @if(auth()->user()->companies->count() > 0)
+                        @foreach (auth()->user()->companies as $company)
+                            <flux:menu.radio.group>
+                                @livewire('company-switcher', ['company' => $company], key($company->id))
+                            </flux:menu.radio.group>
+                        @endforeach
+                    @else
+                        <flux:menu.item>
+                            {{ __('No companies available') }}
+                        </flux:menu.item>
+                    @endif
                 </flux:menu>
             </flux:dropdown>
             <flux:navlist variant="outline">

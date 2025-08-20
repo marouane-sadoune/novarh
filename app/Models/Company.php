@@ -21,8 +21,8 @@ class Company extends Model
     {
         return $this->hasMany(Department::class);
     }
-    public function desgnation(){
-        return $this->throughDepartment->hasDesgnation();
+    public function desginations(){
+        return $this->throughDepartment->hasDesignation();
     }
     public function getLogoUrlAttribute()
     {
