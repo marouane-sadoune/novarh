@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('company_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->primary(['company_id', 'user_id']);
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            
+            // Ensure a user can't be added to the same company twice
+            $table->unique(['user_id', 'company_id']);
         });
     }
 
