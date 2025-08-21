@@ -22,10 +22,5 @@ class HasCompanyContext
         // Redirect to a route or view if the company context is not set
         session()->flash('error', 'Please select Company first.');
         return redirect(URL::previous());
-        // Alternatively, you could return a 403 response or redirect to a different page
-        // return response()->view('errors.403', [], 403);
-        // return redirect()->route('home');
-        // return response()->json(['error' => 'Company context is not set'], 403
-        // );
     }
 }

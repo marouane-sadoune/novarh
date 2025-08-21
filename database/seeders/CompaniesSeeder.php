@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Company;
 
 class CompaniesSeeder extends Seeder
 {
@@ -13,71 +13,38 @@ class CompaniesSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('companies')->insert([
+        $companies = [
             [
                 'name' => 'Google',
                 'email' => 'contact@gmail.com',
-                'website' => 'https://www.google.com',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'address' => '1600 Amphitheatre Parkway, Mountain View, CA',
             ],
             [
                 'name' => 'Microsoft',
                 'email' => 'contact@microsoft.com',
-                'website' => 'https://www.microsoft.com',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'address' => 'One Microsoft Way, Redmond, WA',
             ],
             [
                 'name' => 'Adobe',
-                'email' => 'contact#adobe.com',
-                'website' => 'https://www.adobe.com',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'email' => 'contact@adobe.com',
+                'address' => '345 Park Avenue, San Jose, CA',
             ],
             [
                 'name' => 'Salesforce',
-                'email' => 'contact#salesforce.com',
-                'website' => 'https://www.salesforce.com',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'email' => 'contact@salesforce.com',
+                'address' => 'Salesforce Tower, San Francisco, CA',
             ],
             [
                 'name' => 'IBM',
-                'email' => 'contact#ibm.com',
-                'website' => 'https://www.ibm.com',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'email' => 'contact@ibm.com',
+                'address' => '1 New Orchard Road, Armonk, NY',
             ],
-            [
-                'name' => 'Oracle',
-                'email' => 'contact#oracle.com',
-                'website' => 'https://www.oracle.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Intel',
-                'email' => 'contact#intel.com',
-                'website' => 'https://www.intel.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Samsung',
-                'email' => 'contact@samsung',
-                'website' => 'https://www.samsung.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Nvidia',
-                'email' => 'contact@gmail.com',
-                'website' => 'https://www.nvidia.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            
-        ]);
+        ];
+
+        foreach ($companies as $company) {
+            Company::create($company);
+        }
+        
+        echo "Created " . count($companies) . " companies successfully!\n";
     }
 }

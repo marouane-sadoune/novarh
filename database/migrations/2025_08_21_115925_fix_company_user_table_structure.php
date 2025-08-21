@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             
             // Ensure a user can't be added to the same company twice
-            $table->unique(['user_id', 'company_id']);
+            // $table->unique(['user_id', 'company_id']);
         });
     }
 
