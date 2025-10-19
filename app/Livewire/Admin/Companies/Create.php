@@ -4,21 +4,21 @@ namespace App\Livewire\Admin\Companies;
 
 use App\Models\Company;
 use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use WithFileUploads;
     public $company;
     public $logo;
+    use WithFileUploads;
 
     public function rules()
     {
         return [
             'company.name' => 'required|string|max:255',
+            'company.email' => 'nullable|email|max:255',
             'company.website' => 'nullable|url|max:255',
-            'company.email' => 'required|email|max:255',
-            'logo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // 2MB Max
+            'logo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', 
         ];
     }
     public function mount()
@@ -28,16 +28,18 @@ class Create extends Component
     public function save()
     {
         $this->validate();
-
+        $companyData = [
+            'name' => $this->company->name,
+            'email' => $this->company->email,
+            'website' => $this->company->website,
+        ];
         if ($this->logo) {
-            $this->company->logo = $this->logo->store('logos', 'public');
+            $companyData['logo'] = $this->logo->store('logos', 'public');
         }
-
-        $this->company->save();
-
-        session()->flash('seccess', 'Company created successfully.');
-
-        return $this-> redirectIntended('companies.index');
+        \App\Models\Company::create($this->company);    
+    
+        session()->flash('success', 'Company created successfully.');
+        return $this->redirectIntended(route('companies.index'),true);
     }
     public function render()
     {

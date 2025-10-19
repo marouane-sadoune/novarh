@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Payroll extends Model
@@ -10,25 +9,26 @@ class Payroll extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
-    }public function Salaries()
+    }
+    public function salaries()
     {
         return $this->hasMany(Salary::class);
     }
-    public function paiments()
+    public function payments()
     {
         return $this->hasMany(Payment::class);
     }
-    public function scopeInCompany($query, $companyId)
+    
+    public function scopeInCompany($query)
     {
-        return $query->where('company_id', $this->company_id);
-
+        return $query->where('company_id', session('company_id'));
     }
     public function getMonthYearAttribute()
     {
-        return $this->$this->year . ' ' . $this->month;
+        return $this->year . '-' . $this->month;
     }
     public function getMonthStringAttribute()
     {
-        return Carbon::createFromDate($this->month_year)->format('F Y');
+        return \Carbon\Carbon::parse($this->month_year)->format('F Y');
     }
 }

@@ -7,44 +7,34 @@ use Livewire\Component;
 class Create extends Component
 {
     public $employee;
-    public $departments_id;
+    public $department_id;
     public function rules()
     {
         return [
             'employee.name' => 'required|string|max:255',
-            'employee.email' => 'required|email|max:255|unique:employees,email',
-            'employee.phone' => 'nullable|string|max:15',
-            'employee.address' => 'nullable|string|max:255',
-            'employee.designation_id' => 'required|exists:designation,id',
+            'employee.email' => 'required|email|unique:employees,email',
+            'employee.phone' => 'nullable|string|max:20',
+            'employee.address' => 'nullable|string|max:500',
+            'employee.designation_id' => 'required|exists:designations,id',
         ];
     }
     public function mount()
     {
         $this->employee = new \App\Models\Employee();
-        // $this->departments_id = \App\Models\Department::pluck('id', 'name'); # Assuming you want to use this for a dropdown or similar
-
     }
-
     public function save()
     {
         $this->validate();
-
-        // Save the employee
-        $this->employee->company_id = session('company_id'); 
         $this->employee->save();
-
-        session()->flash('success', 'Employee created successfully.');
-
-        return $this-> redirectIntended('employees.index');
-        // return redirect()->route('admin.employees.index'); # Uncomment if you want to use this instead
+        session()->flash('message', 'Employee created successfully.');
+        return $this->redirectIntended(route('employees.index'));
     }
     public function render()
     {
-        
-        $departments = \App\Models\Department::inCompany()->where('department_id', $this->departments_id->get());
+        $designations = \App\Models\Designation::InCompany()->where('department_id', $this->department_id)->get();
         return view('livewire.admin.employees.create',[
-            'departments' => $departments,
-            'departments'=> \App\Models\Department::inCompany()->get(),
-            ]);
+            'designations' => $designations,
+            'departments' => \App\Models\Department::InCompany()->get(),
+        ]);
     }
 }

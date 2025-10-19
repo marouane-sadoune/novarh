@@ -9,16 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
-            $table->string('designation_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
+            $table->foreignId('designation_id')->constrained()->onDelete('cascade');
             $table->date('start_date');
-            $table->date('end_date')->nullable();
-            $table->decimal('rate', 10, 2);
-            $table->enum('rate_type', ['hourly', 'monthly'])->default('monthly');
+            $table->date('end_date');
+            $table->enum('rate_type', ['daily', 'monthly']);
+            $table->decimal('rate',10,2);
             $table->timestamps();
         });
     }
@@ -26,7 +26,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('contracts');
     }

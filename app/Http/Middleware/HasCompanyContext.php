@@ -18,9 +18,9 @@ class HasCompanyContext
     {
         if (session()->has('company_id')) {
             return $next($request);
-        }
-        // Redirect to a route or view if the company context is not set
-        session()->flash('error', 'Please select Company first.');
+        } 
+        session()->flash('errorMsg', 'Please select a company to proceed.');
         return redirect(URL::previous());
     }
 }
+    

@@ -2,13 +2,11 @@
 
 namespace App\Livewire\Admin\Companies;
 
-use App\Models\Company;
+use Illuminate\Support\Facades\Storage ;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class Edit extends Component
 {
-    use WithFileUploads;
     public $company;
     public $logo;
 
@@ -16,34 +14,24 @@ class Edit extends Component
     {
         return [
             'company.name' => 'required|string|max:255',
+            'company.email' => 'nullable|email|max:255',
             'company.website' => 'nullable|url|max:255',
-            'company.email' => 'required|email|max:255',
-            'logo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // 2MB Max
+            'logo' => 'nullable|image|mims:jpg,png,jpeg|max:2048', // 1MB Max
         ];
     }
     public function mount($id)
     {
-        $this->company =  Company::find($id);
-
+        $this->company = \App\Models\Company::find($id);
     }
     public function save()
     {
         $this->validate();
-
-        if ($this->logo) {
-            if ($this->company->logo) {
-                // Delete the old logo if it exists
-                $this->company->logo->delete();
-            }
-            // Store the new logo
-            $this->company->logo = $this->logo->store('logos', 'public');
+        if ($this->company->logo) {
+            Storage::disk('public')->delete($this->company->logo);
         }
-
-        $this->company->save();
-
-        session()->flash('seccess', 'Company edited successfully.');
-
-        return $this-> redirectIntended('companies.index');
+        \App\Models\Company::create($this->company);
+        session()->flash('seccess', 'Company Edited successfully.');
+        return $this->redirectIntended(route('companies.index'),true);
     }
     public function render()
     {

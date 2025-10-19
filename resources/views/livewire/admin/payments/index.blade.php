@@ -1,3 +1,3 @@
 <div>
-    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
+    {{-- Success is as dangerous as failure. --}}
 </div>

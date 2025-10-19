@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Company;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CompaniesSeeder extends Seeder
 {
@@ -17,34 +17,44 @@ class CompaniesSeeder extends Seeder
             [
                 'name' => 'Google',
                 'email' => 'contact@gmail.com',
-                'address' => '1600 Amphitheatre Parkway, Mountain View, CA',
+                'website' => 'https://www.google.com',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Microsoft',
                 'email' => 'contact@microsoft.com',
-                'address' => 'One Microsoft Way, Redmond, WA',
+                'website' => 'https://www.microsoft.com',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Adobe',
                 'email' => 'contact@adobe.com',
-                'address' => '345 Park Avenue, San Jose, CA',
+                'website' => 'https://www.adobe.com',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Salesforce',
                 'email' => 'contact@salesforce.com',
-                'address' => 'Salesforce Tower, San Francisco, CA',
+                'website' => 'https://www.salesforce.com',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'IBM',
                 'email' => 'contact@ibm.com',
-                'address' => '1 New Orchard Road, Armonk, NY',
+                'website' => 'https://www.ibm.com',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 
-        foreach ($companies as $company) {
-            Company::create($company);
+        DB::table('companies')->insert($companies);
+
+        foreach (Company::all() as $company) {
+            $company->users()->attach(1); // Attach user with id 1
         }
-        
-        echo "Created " . count($companies) . " companies successfully!\n";
     }
 }

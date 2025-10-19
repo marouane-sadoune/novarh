@@ -6,14 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    //
-    protected $fillable = [
-        'name',
-        'company_id',
-    
-    ];
+    protected $fillable = ['name', 'company_id'];
     public function company()
-    
     {
         return $this->belongsTo(Company::class);
     }
@@ -21,13 +15,12 @@ class Department extends Model
     {
         return $this->hasMany(Designation::class);
     }
-
     public function employees()
     {
-        return $this->throughDesignation()->hasEmployees();
+        return $this->throughDesignations()->hasEmployees();
     }
-    public function ScopeInSession($query)
+    public function scopeInCompany($query)
     {
-        return $query->where('companry_id', session('company_id'));
-    }   
+        return $query->where('company_id', session('company_id'));
+    }
 }

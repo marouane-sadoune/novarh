@@ -3,33 +3,27 @@
 namespace App\Livewire\Admin\Companies;
 
 use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use \Livewire\WithPagination;
-    use \Livewire\WithoutUrlPagination;
+    use WithPagination;
+
     public function delete($id)
     {
         $company = Company::find($id);
-        if ($company->exists) {
-            $company->delete();
-            session()->flash('message', 'Company deleted successfully.');
-            if ($company->logo) {
-                $company->logo->delete();
-            }
-        } else {
-            session()->flash('error', 'Company not found.');
+        if ($company->logo){
+            Storage::disk('public')->delete($company->logo);
         }
+        $company->delete();
+        session()->flash('message', 'Company deleted successfully.');
     }
     public function render()
     {
-        return view('livewire.admin.companies.index',
-            [
-                'companies' => Company::latest()->paginate(10),
-            
-            ]);
-
-
+        return view('livewire.admin.companies.index', [
+            'companies' => Company::latest()->paginate(5)
+        ]);
     }
 }

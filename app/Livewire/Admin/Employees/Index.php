@@ -7,19 +7,23 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    use \Livewire\WithPagination;
-    use \Livewire\Features\SupportPagination\WithoutUrlPagination;
+    use \Livewire\WithPagination, \Livewire\WithoutUrlPagination;
     public function delete($id)
     {
-        // Assuming you have an Employee model
-        Employee::find($id)->delete();
-        session()->flash('success', 'Employee deleted successfully.');
+        $employee = \App\Models\Employee::find($id);
+        if ($employee) {
+            $employee->delete();
+            $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Employee Deleted Successfully!']);
+        } else {
+            $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something went wrong!']);
+        }
     }
     public function render()
     {
-    return view('livewire.admin.employees.index',
-        [
-            'employees' => Employee::latest()->paginate(10),
-        ]);
+        return view('livewire.admin.employees.index',
+            [
+                'employees' => Employee::with('designation.department')->paginate(10),
+            ]
+        );
     }
 }

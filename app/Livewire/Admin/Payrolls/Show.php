@@ -4,29 +4,30 @@ namespace App\Livewire\Admin\Payrolls;
 
 use App\Models\Payroll;
 use App\Models\Salary;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class Show extends Component
 {
     public $payroll;
     public function mount($id)
     {
-        $this->payroll = Payroll::findOrFail($id);
+        $this->payroll = Payroll::InCompany()->find($id);
     }
-    public function genratePayslips($id)
+    public function generatePayroll($id)
     {
         $salary = Salary::find($id);
-        $pdf = FacadePdf::loadView('pdf.payslip', ['salary' => $salary]);
-        $pdf->setPaper(array(0, 0, 612, 792), 'portrait');
-        $filepath = 'payslips/' . $salary->employee->name . '-' . $this->payroll->month . '-' . $this->payroll->year . '.pdf';
-        $pdf->save(storage_path('app/' . $filepath));
-        return response()->download(storage_path('app/' . $filepath))->deleteFileAfterSend(true);
-
+        $pdf = Pdf::loadView('pdf.payroll', ['salary' => $salary]);
+        $pdf->setPaper('A4', 'portrait');
+        $filepath = storage_path(path: Str::slug(title: $salary->employee->name). '-payslip.pdf');
+        $pdf->save($filepath);
+        return response()->download(file: $filepath)->deleteFileAfterSend(shouldDelete: true);;
     }
     public function render()
     {
-        return view('livewire.admin.payrolls.show');
+        return view('livewire.admin.payrolls.show', [
+            'payrolls' => Payroll::InCompany()->paginate(10),
+        ]);
     }
 }
